@@ -1,0 +1,29 @@
+.node__editor__zoom {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}
+
+.node__editor__viewport {
+	left: 0;
+	right: 0;
+	transform-origin: 0 0;
+	will-change: transform;
+}
+
+.node__editor__example_wrapper {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.node__editor__example_node {
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	background: red;
+}
