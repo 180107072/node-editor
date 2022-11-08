@@ -8,6 +8,7 @@ export type EditorStore = {
 	transform: Transform
 	wrapperRect: DOMRect | null
 	nodes: Node[]
+	viewportActive: boolean
 }
 
 export type EditorActions = {

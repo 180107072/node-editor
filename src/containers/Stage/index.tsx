@@ -16,18 +16,26 @@ export const Stage = () => {
 
 	return (
 		<div className='node__editor__example_wrapper'>
-			<button
-				style={{ position: 'absolute', zIndex: 1000 }}
-				onClick={() => {
-					for (let i = 0; i < 50; i++) {
-						for (let k = 0; k < 50; k++) {
-							store.addNode({ x: 150 * i, y: 150 * k })
+			<div style={{ position: 'absolute', zIndex: 1000 }}>
+				<button
+					onClick={() => {
+						for (let i = 0; i < 100; i++) {
+							for (let k = 0; k < 100; k++) {
+								store.addNode({
+									x: 150 * i * store.transform[2],
+									y: 150 * k * store.transform[2],
+								})
+							}
 						}
-					}
-				}}
-			>
-				Add node
-			</button>
+					}}
+				>
+					Add {100 * 100} nodes
+				</button>
+
+				<b style={{ color: 'white', marginLeft: 10 }}>
+					Nodes: {store.nodes.length}
+				</b>
+			</div>
 			<ZoomPane>
 				<Viewport>
 					<NodeRenderer />

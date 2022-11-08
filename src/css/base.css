@@ -4,13 +4,15 @@
 	height: 100%;
 	top: 0;
 	left: 0;
+	background-color: black;
+	overflow: hidden;
 }
 
 .node__editor__viewport {
 	left: 0;
 	right: 0;
 	transform-origin: 0 0;
-	will-change: transform;
+	transition: transform 0.055s;
 }
 
 .node__editor__example_wrapper {
@@ -23,7 +25,27 @@
 
 .node__editor__example_node {
 	position: absolute;
+	border-radius: 10px;
+	overflow: hidden;
 	width: 100px;
 	height: 100px;
-	background: red;
+	display: flex;
+	flex-direction: column;
+	padding: 2px;
+	border : 1px solid white;
 }
+
+.node__editor__example_node > input {
+	border-radius: 10px;
+	margin: 1px 0 5px 0;	
+	border: 1px solid rgb(67, 67, 67);
+	padding: 2px 5px 2px 5px;
+	font-size: 10px;
+}
+
+.node__editor__example_node > button {
+	border-radius: 10px;
+	border: 1px solid rgb(67, 67, 67);
+	margin-top: auto;
+}
+
