@@ -11,8 +11,11 @@ specifiers:
   d3-drag: ^3.0.0
   d3-selection: ^3.0.0
   d3-zoom: ^3.0.0
+  immer: ^9.0.16
+  nanoid: ^4.0.0
   react: ^18.2.0
   react-dom: ^18.2.0
+  react-fast-compare: ^3.2.0
   typescript: ^4.6.4
   vite: ^3.2.0
   zustand: ^4.1.4
@@ -22,9 +25,12 @@ dependencies:
   d3-drag: 3.0.0
   d3-selection: 3.0.0
   d3-zoom: 3.0.0
+  immer: 9.0.16
+  nanoid: 4.0.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
-  zustand: 4.1.4_react@18.2.0
+  react-fast-compare: 3.2.0
+  zustand: 4.1.4_immer@9.0.16+react@18.2.0
 
 devDependencies:
   '@types/d3-drag': 3.0.1
@@ -818,6 +824,10 @@ packages:
       function-bind: 1.1.1
     dev: true
 
+  /immer/9.0.16:
+    resolution: {integrity: sha512-qenGE7CstVm1NrHQbMh8YaSzTZTFNP3zPqr3YU0S0UY441j4bJTg4A2Hh5KAhwgaiU6ZZ1Ar6y/2f4TblnMReQ==}
+    dev: false
+
   /is-core-module/2.11.0:
     resolution: {integrity: sha512-RRjxlvLDkD1YJwDbroBHMb+cukurkDWNyHx7D3oNB5x9rb5ogcksMC5wHCadcXoo67gVr/+3GFySh3134zi6rw==}
     dependencies:
@@ -863,6 +873,12 @@ packages:
     hasBin: true
     dev: true
 
+  /nanoid/4.0.0:
+    resolution: {integrity: sha512-IgBP8piMxe/gf73RTQx7hmnhwz0aaEXYakvqZyE302IXW3HyVNhdNGC+O2MwMAVhLEnvXlvKtGbtJf6wvHihCg==}
+    engines: {node: ^14 || ^16 || >=18}
+    hasBin: true
+    dev: false
+
   /node-releases/2.0.6:
     resolution: {integrity: sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==}
     dev: true
@@ -902,6 +918,10 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-fast-compare/3.2.0:
+    resolution: {integrity: sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==}
     dev: false
 
   /react-refresh/0.14.0:
@@ -1025,7 +1045,7 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /zustand/4.1.4_react@18.2.0:
+  /zustand/4.1.4_immer@9.0.16+react@18.2.0:
     resolution: {integrity: sha512-k2jVOlWo8p4R83mQ+/uyB8ILPO2PCJOf+QVjcL+1PbMCk1w5OoPYpAIxy9zd93FSfmJqoH6lGdwzzjwqJIRU5A==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
@@ -1037,6 +1057,7 @@ packages:
       react:
         optional: true
     dependencies:
+      immer: 9.0.16
       react: 18.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false

@@ -36,7 +36,7 @@ export const ZoomPane: FC<PropsWithChildren> = ({ children }) => {
 		if (!zoomWrapper.current) return
 		store.setState({ wrapperRect: zoomWrapper.current.getBoundingClientRect() })
 
-		const d3Zoom = zoom<HTMLElement, HTMLDivElement>()
+		const d3Zoom = zoom<HTMLElement, HTMLDivElement>().scaleExtent([0.2, 4])
 		const d3Selection = select<HTMLElement, HTMLDivElement>(zoomWrapper.current)
 
 		d3Zoom.on('start', handleZoomStart)
@@ -53,7 +53,7 @@ export const ZoomPane: FC<PropsWithChildren> = ({ children }) => {
 	}, [])
 
 	return (
-		<div ref={zoomWrapper} className='node__editor__zoom'>
+		<div ref={zoomWrapper} className="node__editor__zoom">
 			{children}
 		</div>
 	)

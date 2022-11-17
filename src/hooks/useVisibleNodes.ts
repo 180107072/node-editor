@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { EditorStore } from '../types'
+import { EditorStore, Node } from '../types'
 import { getOverlappingArea, Rect } from '../utils'
 import { useStore } from './useStore'
 
@@ -9,34 +9,49 @@ const selector = (s: EditorStore) => ({
 	transform: s.transform,
 })
 
+const getScaledRect = (rect: Rect, tScale: number) => ({
+	x: rect.x / tScale,
+	y: rect.y / tScale,
+	width: rect.width / tScale,
+	height: rect.height / tScale,
+})
+
 export function useVisibleNodes() {
 	const {
 		nodes,
 		wrapperRect,
 		transform: [tx, ty, tScale],
 	} = useStore(selector)
+
 	return useMemo(() => {
+		const visibleNodes: Node[] = []
+		if (!wrapperRect) return visibleNodes
 		let i = 0
-		const visibleNodes = []
-		while (i < nodes.length) {
-			if (!wrapperRect) break
-			const rect: Rect = {
-				x: (wrapperRect.x - tx) / tScale,
-				y: (wrapperRect.y - ty) / tScale,
-				width: wrapperRect.width / tScale,
-				height: wrapperRect.height / tScale,
-			}
+
+		const rect: Rect = getScaledRect(
+			{
+				x: wrapperRect.x - tx,
+				y: wrapperRect.y - ty,
+				width: wrapperRect.width,
+				height: wrapperRect.height,
+			},
+			tScale
+		)
+
+		for (const [_, v] of nodes) {
 			const nodeRect: Rect = {
-				x: nodes[i].x,
-				y: nodes[i].y,
-				width: 100,
-				height: 100,
+				x: v.position.x,
+				y: v.position.y,
+				width: v.width,
+				height: v.height,
 			}
+
 			const overlappingArea = getOverlappingArea(rect, nodeRect)
 
-			if (overlappingArea > 100) visibleNodes.push(nodes[i])
-
-			i++
+			if (overlappingArea > 100) {
+				visibleNodes[i] = v
+				i++
+			}
 		}
 
 		return visibleNodes

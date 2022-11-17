@@ -1,22 +1,21 @@
 import { createStore } from 'zustand'
+import { immer } from 'zustand/middleware/immer'
+import { enableMapSet } from 'immer'
 import { EditorActions, EditorStore, Node } from '../types'
 import { initialState } from './initial.store'
 
-export const createEditorState = () =>
-	createStore<EditorStore & EditorActions>((set, get) => ({
-		...initialState,
+enableMapSet()
 
-		addNode: ({ x, y }) => {
-			const { transform, nodes } = get()
-			const scale = transform[2]
-			set({
-				nodes: [
-					...nodes!,
-					{
-						x: x / scale,
-						y: y / scale,
-					},
-				],
-			})
-		},
-	}))
+export const createEditorState = () =>
+	createStore<EditorStore & EditorActions, [['zustand/immer', never]]>(
+		immer((set, get) => ({
+			...initialState,
+
+			setNodes(nodes) {
+				set({ nodes })
+			},
+			addNode(node) {
+				set((state) => void state.nodes.set(node.id, node))
+			},
+		}))
+	)
