@@ -12,7 +12,8 @@
 	left: 0;
 	right: 0;
 	transform-origin: 0 0;
-	transition: transform 0.055s;
+	will-change: transform;
+	transition: transform 0.1s;
 }
 
 .node__editor__example_wrapper {

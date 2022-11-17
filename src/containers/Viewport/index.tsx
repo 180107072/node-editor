@@ -15,7 +15,6 @@ export const Viewport: FC<PropsWithChildren> = ({ children }) => {
 	const store = useStore(selector)
 	const transform = applySelector(store.transform)
 	const ref = useRef<HTMLDivElement>(null)
-
 	return (
 		<div ref={ref} className="node__editor__viewport" style={{ transform }}>
 			{children}
