@@ -13,7 +13,7 @@
 	right: 0;
 	transform-origin: 0 0;
 	will-change: transform;
-	transition: transform 0.1s;
+	transition: transform 0.075s;
 }
 
 .node__editor__example_wrapper {
