@@ -1,10 +1,11 @@
 import deepEqual from 'react-fast-compare'
-import { memo, useDeferredValue, useEffect, useMemo, useState } from 'react'
+import { memo, useDeferredValue } from 'react'
 import { NodeExample } from '../../components/Node'
 import { useVisibleNodes } from '../../hooks/useVisibleNodes'
 import { Node } from '../../types'
 
 export const Renderer = memo(({ nodes }: { nodes: Node[] }) => {
+	console.log(nodes)
 	return (
 		<>
 			{nodes.map((node) => (

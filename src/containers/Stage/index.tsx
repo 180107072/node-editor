@@ -4,7 +4,7 @@ import { useStore } from '../../hooks/useStore'
 import { NodeRenderer } from '../NodeRenderer'
 import { EditorActions, EditorStore, Node } from '../../types'
 import { nanoid } from 'nanoid'
-import { useState, useTransition } from 'react'
+import { useState } from 'react'
 
 const selector = (s: EditorStore & EditorActions) => ({
 	transform: s.transform.map((v) => v.toFixed(2)),
@@ -14,12 +14,17 @@ const selector = (s: EditorStore & EditorActions) => ({
 	nodes: s.nodes,
 })
 
+const nodeTypes = {
+	example: {},
+}
+
 const createNodes = (x = 10, y = 10) => {
 	const nodes = new Map<string, Node>()
 	for (let i = 0; i < x; i++) {
 		for (let k = 0; k < y; k++) {
 			const id = nanoid()
 			nodes.set(id, {
+				type: 'example',
 				id,
 				width: 100,
 				height: 100,
