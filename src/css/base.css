@@ -12,7 +12,8 @@
 	left: 0;
 	right: 0;
 	transform-origin: 0 0;
-	transition: 0.05s;
+	will-change: transform;
+	transition: transform 0.07s;
 }
 
 .node__editor__example_wrapper {
@@ -21,6 +22,20 @@
 	position: absolute;
 	top: 0;
 	left: 0;
+}
+
+.node__editor__example_controls {
+	position: absolute;
+	background: #fff;
+	z-index: 1000;
+}
+
+.node__editor__example_controls > input {
+	max-width: 30px;
+}
+
+.node__editor__example_controls > span {
+	margin-left: 10px;
 }
 
 .node__editor__example_node {

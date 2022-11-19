@@ -48,7 +48,7 @@ export function useVisibleNodes() {
 
 			const overlappingArea = getOverlappingArea(rect, nodeRect)
 
-			if (overlappingArea > 100) {
+			if (overlappingArea > 0) {
 				visibleNodes[i] = v
 				i++
 			}

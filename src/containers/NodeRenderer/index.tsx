@@ -4,8 +4,11 @@ import { NodeExample } from '../../components/Node'
 import { useVisibleNodes } from '../../hooks/useVisibleNodes'
 import { Node } from '../../types'
 
-export const Renderer = memo(({ nodes }: { nodes: Node[] }) => {
-	console.log(nodes)
+type RendererProps = {
+	nodes: Node[]
+}
+
+const Renderer = memo(({ nodes }: RendererProps) => {
 	return (
 		<>
 			{nodes.map((node) => (

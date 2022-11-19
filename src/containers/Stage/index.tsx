@@ -14,10 +14,6 @@ const selector = (s: EditorStore & EditorActions) => ({
 	nodes: s.nodes,
 })
 
-const nodeTypes = {
-	example: {},
-}
-
 const createNodes = (x = 10, y = 10) => {
 	const nodes = new Map<string, Node>()
 	for (let i = 0; i < x; i++) {
@@ -46,39 +42,26 @@ export const Stage = () => {
 
 	return (
 		<div className="node__editor__example_wrapper">
-			<div style={{ position: 'absolute', background: '#fff', zIndex: 1000 }}>
+			<div className="node__editor__example_controls">
 				<input
 					placeholder="X"
 					value={x}
-					style={{ maxWidth: 30 }}
 					onChange={({ target: { value } }) =>
 						!isNaN(+value) && setNodesToGenerate({ ...pos, x: +value })
 					}
 				/>
 				<input
+					placeholder="Y"
 					value={y}
-					placeholder="y"
-					style={{ maxWidth: 30 }}
 					onChange={({ target: { value } }) =>
 						!isNaN(+value) && setNodesToGenerate({ ...pos, y: +value })
 					}
 				/>
-
-				<button
-					onClick={() => {
-						const generatedNodes = createNodes(x, y)
-
-						store.setNodes(generatedNodes)
-					}}
-				>
+				<button onClick={() => store.setNodes(createNodes(x, y))}>
 					Add {x * y} nodes
 				</button>
-
-				<span style={{ marginLeft: 10 }}>Nodes: {store.nodes.size}</span>
-
-				<span style={{ marginLeft: 10 }}>
-					Transform: {JSON.stringify(store.transform, null, 4)}
-				</span>
+				<span>Nodes: {store.nodes.size}</span>
+				<span>Transform: {JSON.stringify(store.transform, null, 4)}</span>
 			</div>
 			<ZoomPane>
 				<Viewport>

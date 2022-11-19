@@ -1,12 +1,10 @@
-import useRaf from '@rooks/use-raf'
-import { FC, PropsWithChildren, useEffect, useMemo, useRef } from 'react'
+import { FC, PropsWithChildren, useEffect, useRef } from 'react'
 import { useStore } from '../../hooks/useStore'
 import { EditorStore, Transform } from '../../types'
 
 const selector = (s: EditorStore) => ({
 	transform: s.transform,
 	wrapperRect: s.wrapperRect,
-	shouldRun: s.viewportActive,
 })
 
 const applySelector = (transform: Transform) =>
@@ -17,11 +15,12 @@ export const Viewport: FC<PropsWithChildren> = ({ children }) => {
 	const transform = applySelector(store.transform)
 	const ref = useRef<HTMLDivElement>(null)
 
-	useRaf(() => {
-		if (!ref.current) return
-
-		ref.current.style.transform = transform
-	}, store.shouldRun)
+	useEffect(() => {
+		requestAnimationFrame(() => {
+			if (!ref.current) return
+			ref.current.style.transform = transform
+		})
+	}, [transform])
 
 	return (
 		<div ref={ref} className="node__editor__viewport">

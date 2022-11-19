@@ -1,10 +1,4 @@
-import {
-	FC,
-	PropsWithChildren,
-	startTransition,
-	useEffect,
-	useRef,
-} from 'react'
+import { FC, PropsWithChildren, useEffect, useRef } from 'react'
 import { zoom, D3ZoomEvent } from 'd3-zoom'
 import { select } from 'd3-selection'
 import { useStoreApi } from '../../hooks/useStore'
@@ -13,11 +7,7 @@ export const ZoomPane: FC<PropsWithChildren> = ({ children }) => {
 	const zoomWrapper = useRef<HTMLDivElement>(null)
 	const store = useStoreApi()
 
-	const handleZoomStart = (event: D3ZoomEvent<HTMLDivElement, WheelEvent>) => {
-		store.setState({
-			viewportActive: true,
-		})
-	}
+	const handleZoomStart = (event: D3ZoomEvent<HTMLDivElement, WheelEvent>) => {}
 	const handleZoom = (event: D3ZoomEvent<HTMLDivElement, WheelEvent>) => {
 		const { x, y, k } = event.transform
 
@@ -28,7 +18,6 @@ export const ZoomPane: FC<PropsWithChildren> = ({ children }) => {
 	const handleZoomEnd = (event: D3ZoomEvent<HTMLDivElement, WheelEvent>) => {
 		store.setState({
 			wrapperRect: zoomWrapper.current!.getBoundingClientRect(),
-			viewportActive: false,
 		})
 	}
 
