@@ -7,7 +7,12 @@ export const ZoomPane: FC<PropsWithChildren> = ({ children }) => {
 	const zoomWrapper = useRef<HTMLDivElement>(null)
 	const store = useStoreApi()
 
-	const handleZoomStart = (event: D3ZoomEvent<HTMLDivElement, WheelEvent>) => {}
+	const handleZoomStart = (event: D3ZoomEvent<HTMLDivElement, WheelEvent>) => {
+		store.setState({
+			viewportActive: true,
+		})
+	}
+
 	const handleZoom = (event: D3ZoomEvent<HTMLDivElement, WheelEvent>) => {
 		const { x, y, k } = event.transform
 
@@ -15,9 +20,11 @@ export const ZoomPane: FC<PropsWithChildren> = ({ children }) => {
 			transform: [x, y, k],
 		})
 	}
+
 	const handleZoomEnd = (event: D3ZoomEvent<HTMLDivElement, WheelEvent>) => {
 		store.setState({
 			wrapperRect: zoomWrapper.current!.getBoundingClientRect(),
+			viewportActive: false,
 		})
 	}
 

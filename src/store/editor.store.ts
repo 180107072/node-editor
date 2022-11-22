@@ -17,5 +17,16 @@ export const createEditorState = () =>
 			addNode(node) {
 				set((state) => void state.nodes.set(node.id, node))
 			},
+			updateNodePosition(nodeId, position) {
+				set((state) => {
+					const node = state.nodes.get(nodeId)
+					const updatedNode = {
+						...node,
+						position,
+					} as Node
+
+					state.nodes.set(nodeId, updatedNode)
+				})
+			},
 		}))
 	)

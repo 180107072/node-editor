@@ -1,10 +1,10 @@
 export type Transform = [number, number, number]
-export type Position = {
+export type PositionXY = {
 	x: number
 	y: number
 }
 export type Node = {
-	position: Position
+	position: PositionXY
 	type?: string
 	id: number | string
 	width: number
@@ -25,4 +25,5 @@ export type EditorStore = {
 export type EditorActions = {
 	setNodes: (nodes: Nodes) => void
 	addNode: (node: Node) => void
+	updateNodePosition: (nodeId: string | number, position: PositionXY) => void
 }
