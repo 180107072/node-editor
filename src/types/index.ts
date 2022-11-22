@@ -4,7 +4,7 @@ export type PositionXY = {
 	y: number
 }
 export type Node = {
-	position: Position
+	position: PositionXY
 	type?: string
 	id: number | string
 	width: number
