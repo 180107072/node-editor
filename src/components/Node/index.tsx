@@ -2,10 +2,10 @@ import { memo, useRef } from 'react'
 import { useDrag } from '../../hooks/useDrag'
 import { Node } from '../../types'
 
-export const NodeExample = memo(({ position: { x, y } }: Node) => {
+export const NodeExample = memo(({ id, position: { x, y } }: Node) => {
 	const ref = useRef<HTMLDivElement>(null)
 
-	// useDrag<HTMLDivElement>(ref)
+	const dragging = useDrag<HTMLDivElement>(ref, id)
 
 	return (
 		<div
