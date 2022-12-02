@@ -1,3 +1,5 @@
+import { RefObject } from 'react'
+
 export type Transform = [number, number, number]
 export type PositionXY = {
 	x: number
@@ -26,4 +28,8 @@ export type EditorActions = {
 	setNodes: (nodes: Nodes) => void
 	addNode: (node: Node) => void
 	updateNodePosition: (nodeId: string | number, position: PositionXY) => void
+}
+
+export interface ElementWithData extends HTMLDivElement {
+	data: Transform
 }

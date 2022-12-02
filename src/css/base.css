@@ -13,7 +13,6 @@
 	right: 0;
 	transform-origin: 0 0;
 	will-change: transform;
-	transition: transform 0.07s;
 }
 
 .node__editor__example_wrapper {
@@ -48,6 +47,7 @@
 	flex-direction: column;
 	padding: 2px;
 	border: 1px solid white;
+	animation: fadein 1s;
 }
 
 .node__editor__example_node > input {
@@ -62,4 +62,13 @@
 	border-radius: 10px;
 	border: 1px solid rgb(67, 67, 67);
 	margin-top: auto;
+}
+
+@keyframes fadein {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }

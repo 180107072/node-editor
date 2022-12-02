@@ -4,7 +4,7 @@ import { D3DragEvent, drag } from 'd3-drag'
 import { useStoreApi } from './useStore'
 
 export function useDrag<Datum>(
-	nodeRef: RefObject<Element>,
+	nodeRef: RefObject<HTMLElement>,
 	nodeId: string | number
 ) {
 	const [dragging, setDragging] = useState(false)
@@ -69,8 +69,15 @@ export function useDrag<Datum>(
 		})
 
 		d3Drag.on('drag', (event: D3DragEvent<HTMLElement, Datum, DragEvent>) => {
-			if (!offset.current) return
+			if (!offset.current || !nodeRef.current) return
 
+			const { x, y } = getPointerPosition(event)
+			nodeRef.current.style.transform = `translate3d(${
+				x - offset.current.x
+			}px, ${y - offset.current.y}px, 0px)`
+		})
+
+		d3Drag.on('end', (event: D3DragEvent<HTMLElement, Datum, DragEvent>) => {
 			const { x, y } = getPointerPosition(event)
 			const { updateNodePosition } = store.getState()
 
@@ -78,9 +85,6 @@ export function useDrag<Datum>(
 				x: x - offset.current.x,
 				y: y - offset.current.y,
 			})
-		})
-
-		d3Drag.on('end', (event: D3DragEvent<HTMLElement, Datum, DragEvent>) => {
 			setDragging(false)
 		})
 
