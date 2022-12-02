@@ -1,4 +1,13 @@
-import { FC, PropsWithChildren, useRef } from 'react'
+import {
+	FC,
+	ForwardedRef,
+	forwardRef,
+	PropsWithChildren,
+	RefObject,
+	useContext,
+	useRef,
+} from 'react'
+import ViewportContext from '../../context/ViewportContext'
 import { useRaf } from '../../hooks/useRaf'
 import { useStore } from '../../hooks/useStore'
 import { EditorStore, Transform } from '../../types'
@@ -10,17 +19,10 @@ const selector = (s: EditorStore) => ({
 })
 
 const applySelector = (transform: Transform) =>
-	`translate3d(${transform[0]}px,${transform[1]}px, 0px) scale3d(${transform[2]}, ${transform[2]}, ${transform[2]})`
+	`translate(${transform[0]}px,${transform[1]}px) scale3d(${transform[2]}, ${transform[2]}, ${transform[2]})`
 
-export const Viewport: FC<PropsWithChildren> = ({ children }) => {
-	const store = useStore(selector)
-	const transform = applySelector(store.transform)
-	const ref = useRef<HTMLDivElement>(null)
-
-	useRaf(() => {
-		if (!ref.current) return
-		ref.current.style.transform = transform
-	}, store.shouldRun)
+export const Viewport = ({ children }: PropsWithChildren) => {
+	const ref = useContext(ViewportContext)
 
 	return (
 		<div ref={ref} className="node__editor__viewport">

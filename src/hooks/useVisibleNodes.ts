@@ -1,12 +1,21 @@
-import { useMemo } from 'react'
+import {
+	startTransition,
+	useContext,
+	useEffect,
+	useMemo,
+	useState,
+} from 'react'
+import ViewportContext from '../context/ViewportContext'
 import { EditorStore, Node } from '../types'
 import { getOverlappingArea, Rect } from '../utils'
+import { useRaf } from './useRaf'
 import { useStore } from './useStore'
 
 const selector = (s: EditorStore) => ({
 	wrapperRect: s.wrapperRect,
 	nodes: s.nodes,
 	transform: s.transform,
+	shouldRun: s.viewportActive,
 })
 
 const getScaledRect = (rect: Rect, tScale: number) => ({
@@ -17,16 +26,19 @@ const getScaledRect = (rect: Rect, tScale: number) => ({
 })
 
 export function useVisibleNodes() {
-	const {
-		nodes,
-		wrapperRect,
-		transform: [tx, ty, tScale],
-	} = useStore(selector)
+	const { nodes, wrapperRect, shouldRun } = useStore(selector)
 
-	return useMemo(() => {
-		const visibleNodes: Node[] = []
-		if (!wrapperRect) return visibleNodes
+	const viewportRef = useContext(ViewportContext)!
+
+	const [visibleNodes, setVisibleNodes] = useState<Node[]>([])
+
+	useRaf(() => {
+		const ns: Node[] = []
+		if (!wrapperRect || !viewportRef!.current) return visibleNodes
+
 		let i = 0
+
+		const [tx, ty, tScale] = viewportRef.current.data
 
 		const rect: Rect = getScaledRect(
 			{
@@ -49,11 +61,13 @@ export function useVisibleNodes() {
 			const overlappingArea = getOverlappingArea(rect, nodeRect)
 
 			if (overlappingArea > 0) {
-				visibleNodes[i] = v
+				ns[i] = v
 				i++
 			}
 		}
 
-		return visibleNodes
-	}, [nodes, tx, ty, tScale])
+		setVisibleNodes(ns)
+	}, shouldRun)
+
+	return visibleNodes
 }
